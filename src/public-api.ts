@@ -10,4 +10,4 @@ export * from './lib/routing/i18n-router-link.directive'
 export * from './lib/routing/i18n-router-link-active.directive'
 export * from './lib/i18n-selector.directive'
 export * from './lib/i18n-language'
-
+export * from './lib/routing/irouter-link-active-options'

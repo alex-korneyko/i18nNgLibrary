@@ -1,6 +1,7 @@
 import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
 import {I18nService} from "../i18n.service";
+import {IRouterLinkActiveOptions} from "./irouter-link-active-options";
 
 @Directive({
   selector: '[i18nRouterLinkActive]'
@@ -11,7 +12,7 @@ export class I18nRouterLinkActiveDirective implements AfterViewInit{
   i18nRouterLinkActive = "";
 
   @Input()
-  i18nRouterLinkActiveOptions: {exact: boolean; } | undefined;
+  i18nRouterLinkActiveOptions: IRouterLinkActiveOptions | undefined;
 
   constructor(private router: Router, private el: ElementRef, private i18nService: I18nService) { }
 
