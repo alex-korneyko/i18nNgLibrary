@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, HostListener, Input} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input} from '@angular/core';
 import {I18nService} from "./i18n.service";
 import {NavigationEnd, Router} from "@angular/router";
 import {I18nOptions} from "./i18nOptions";
@@ -6,24 +6,15 @@ import {I18nOptions} from "./i18nOptions";
 @Directive({
   selector: '[i18nSelector]'
 })
-export class I18nSelectorDirective implements AfterViewInit{
+export class I18nSelectorDirective {
 
   @Input()
   i18nSelector = "en"
 
-  constructor(private i18nService: I18nService, private el: ElementRef, private router: Router) { }
+  constructor(private i18nService: I18nService, private el: ElementRef, private router: Router) {
+    let HTMLLinkElement = el.nativeElement as HTMLLinkElement;
 
-  @HostListener("click")
-  mouseClickHandler() {
-    if (!I18nOptions.useRouting) {
-      this.i18nService.SetLanguage(this.i18nSelector);
-    }
-  }
-
-  ngAfterViewInit(): void {
-    let HTMLLinkElement = this.el.nativeElement as HTMLLinkElement;
-
-    this.router.events.subscribe(event => {
+    router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         let navEndEvent = event as NavigationEnd;
 
@@ -52,5 +43,12 @@ export class I18nSelectorDirective implements AfterViewInit{
         HTMLLinkElement.href = "/" + this.i18nSelector + urlWithoutLang;
       }
     })
+  }
+
+  @HostListener("click")
+  mouseClickHandler() {
+    if (!I18nOptions.useRouting) {
+      this.i18nService.SetLanguage(this.i18nSelector);
+    }
   }
 }
